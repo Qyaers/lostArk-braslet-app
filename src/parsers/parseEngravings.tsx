@@ -7,7 +7,7 @@ const engrColorMap: ColorMap = {
     '#CE43FC': 'Эпическая',
 };
 
-export function parseEngravings(jsonData: object):EngrInfo[]{//{
+export function parseEngravings(jsonData: Document):EngrInfo[]{//{
     const data = JSON.stringify(jsonData);
     const engravings:EngrInfo[] = [];
     

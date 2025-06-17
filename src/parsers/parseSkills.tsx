@@ -1,6 +1,6 @@
 import { skillNameRegex } from "../regex/regex";
 
-export function parseSkillsName(jsonData:object):string[] {
+export function parseSkillsName(jsonData:Document):string[] {
     const text:string = JSON.stringify(jsonData);
     const skills:string[] = [];
     let match:RegExpExecArray|null;

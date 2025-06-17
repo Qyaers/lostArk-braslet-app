@@ -8,6 +8,4 @@ export const gemEffectRegex = /<FONT\s+COLOR='#[0-9A-Fa-f]{6}'>([^<]+)<\/FONT>:\
 
 export const engravingRegex = /<span><font color='(#[0-9A-Fa-f]{6})'>([А-Яа-яЁё\w\s'&;,#-]+?)<\/font>.+?x <FONT COLOR='#[0-9A-Fa-f]{6}'>(\d{0,4})<\/FONT><\/span>\\r\\n/g;
 
-// first regex just for tests export const skinsStatsRegex = /Ловкость \+\d{1,2}\.00%/g
-//TODO test regex and finish skinsStats parser
-export const skinsStatsRegex = /<FONT COLOR='#[0-9A-Fa-f]{6}'>(Эпический|Легендарный)<\/FONT><\/FONT>.+?(Ловкость|Сила|Интелект) \+(\d{1,2})\.00% /g
+export const skinsStatsRegex = /(Ловкость|Сила|Интеллект) \+(\d{1,2})\.00%/gi;

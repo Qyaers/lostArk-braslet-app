@@ -9,7 +9,7 @@ const runeColorMap: ColorMap = {
     '#8DF901': 'Необычный',
 };
 
-export function parseRunes(jsonData: object): RuneInfo[] {
+export function parseRunes(jsonData: Document): RuneInfo[] {
     const text = JSON.stringify(jsonData);
     const matchesIterator = text.matchAll(runesNameRegex);
     const runes: RuneInfo[] = [];

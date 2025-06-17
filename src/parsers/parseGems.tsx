@@ -3,7 +3,7 @@ import type { JewelInfo } from "../types/type";
 
 
 // TODO Для одного из кейсов не работает корректно(если у камня есть все параметры то может не записывать урон% скипая его и записывая тольк поддержку)
-export function parseGems(jsonData: object): JewelInfo[] {
+export function parseGems(jsonData: Document): JewelInfo[] {
     const data = JSON.stringify(jsonData);
     const results: JewelInfo[] = [];
 

@@ -1,16 +1,38 @@
-import {} from "../regex/regex"
-import type {} from "../types/type"
+import { skinsStatsRegex } from "../regex/regex"
+import type { SkinsInfo, SkinsSlotsNames, SkinSlot } from "../types/type";
 
-//TODO Make parser for skins stats that grands us % of base stat of character.
+const skinsSlots: SkinsSlotsNames = {
+    slot1: "Weapon",
+    slot3: "Helmet",
+    slot6: "Body armor",
+    slot7: "Armory Pents"
+};
 
-// Skins
-// can find them by substring \"Element_001\": \"Ловкость +2.00% where besidce "Ловкость" can be one of [Ловкость,Сила, Интелект].
+export function parseSkinsStats(jsonData:Document|string): SkinsInfo[]{
+    jsonData = String(jsonData);
+    const slotsWithSkins: SkinSlot[] = [...new DOMParser()
+    .parseFromString(jsonData, 'text/html')!
+    .querySelector('div[class^="profile-avatar__slot"]')!
+    .querySelectorAll('div[class="slot1"], div[class="slot3"], div[class="slot6"], div[class="slot7"]')]
+    .map((slot: Element) => ({
+        slot: skinsSlots[slot.className as keyof SkinsSlotsNames] as string,
+        img: slot.querySelector('img')!.src
+    }));
 
-export function parseSkinsStats(jsonData:object): number{
-    const data = JSON.stringify(jsonData);
-    
-    //TODO complete parser with logic -> first 3/4 data if second match have 2% and his color is purple then body have 2% 3rd skips(become 0) and 4 is equal 3(we taking % from 3rd match)
-    // colors pick up frop tag fontcolor and color schem 
+    const skinsInfo:SkinsInfo[] = [];
+    let counter = 0;
 
-    return 0;
+    for(const match of jsonData.matchAll(skinsStatsRegex)){
+        if(counter==4) break;
+        skinsInfo.push({
+            skinPosition: slotsWithSkins[counter].slot,
+            skinGrade: parseInt(match[2])==1?"Эпический":"Легендарный",
+            skinStatName: match[1],
+            skinStatValue: parseInt(match[2]),
+        });
+        counter++;
+    }
+    if(skinsInfo.length == 3)
+        skinsInfo[2].skinGrade = "Эпический";
+    return skinsInfo;
 }

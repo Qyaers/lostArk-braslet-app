@@ -1,13 +1,14 @@
 import { useState, type ChangeEvent } from 'react';
 import { fetchData } from './Api';
-import {parseTripods} from './parsers/parseParseTripods';
-import {parseSkillsName} from './parsers/parseSkills';
-import {parseRunes} from './parsers/parseRunes';
-import {parseGems} from './parsers/parseGems';
+import { parseTripods } from './parsers/parseParseTripods';
+import { parseSkillsName } from './parsers/parseSkills';
+import { parseRunes } from './parsers/parseRunes';
+import { parseGems } from './parsers/parseGems';
 import { parseEngravings } from './parsers/parseEngravings';
+import { parseSkinsStats } from './parsers/parseSkins';
 
 
-import type { TripodInfo,SkillsInfo,JewelInfo, RuneInfo, EngrInfo } from "./types/type";
+import type { TripodInfo,SkillsInfo,JewelInfo, RuneInfo, EngrInfo, SkinsInfo} from "./types/type";
 
 function App() {
 
@@ -20,11 +21,12 @@ function App() {
   const [runes,setRunes] = useState<RuneInfo[]|null>(null);
   const [gems,setGems] = useState<JewelInfo[] |null>(null);
   const [engrs,setEngrs] = useState<EngrInfo[]|null>(null)
+  const [skinsInfo,setSkinsInfo] = useState<SkinsInfo[]|null>(null);
 
   function handlerInputText(e:ChangeEvent<HTMLInputElement>):void{
     setText(e.target.value);
   }
-  // TODO вытащить ещё несколько параметров из данных: Внешки + Фетранит + Элики(сет лвл) + Высшая закалка + Транса + Арк 123 + Бижа(все) + брас
+  // TODO вытащить ещё несколько параметров из данных: Фетранит + Элики(сет лвл) + Высшая закалка + Транса + Арк 123 + Бижа(все) + брас
 
   async function handlerClick():Promise<void> {
       setIsLoading(true);
@@ -36,6 +38,7 @@ function App() {
             setRunes(parseRunes(newData));
             setGems(parseGems(newData));
             setEngrs(parseEngravings(newData));
+            setSkinsInfo(parseSkinsStats(newData));
           }
       } catch (error) {
           console.error("Error:", error);
@@ -63,7 +66,6 @@ function App() {
     setGems(null);
   }
 
-
 // Бижа (только эффекты)
 
   return (
@@ -83,6 +85,7 @@ function App() {
           {runes?<pre>runes = {JSON.stringify(runes, null, 2)}</pre>:""}
           {gems?<pre>jewells = {JSON.stringify(gems, null, 2)}</pre>:""}
           {engrs?<pre>engrs = {JSON.stringify(engrs, null, 2)}</pre>:""}
+          {skinsInfo?<pre>skins = {JSON.stringify(skinsInfo, null, 2)}</pre>:""}
           Вывод данных в разных форматах для тестов и поиска информации со страницы:
           <pre>{JSON.stringify(data, null, 5)}</pre>
           <pre>{data}</pre>
