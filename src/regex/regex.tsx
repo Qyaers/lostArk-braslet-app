@@ -9,3 +9,5 @@ export const gemEffectRegex = /<FONT\s+COLOR='#[0-9A-Fa-f]{6}'>([^<]+)<\/FONT>:\
 export const engravingRegex = /<span><font color='(#[0-9A-Fa-f]{6})'>([А-Яа-яЁё\w\s'&;,#-]+?)<\/font>.+?x <FONT COLOR='#[0-9A-Fa-f]{6}'>(\d{0,4})<\/FONT><\/span>\\r\\n/g;
 
 export const skinsStatsRegex = /(Ловкость|Сила|Интеллект) \+(\d{1,2})\.00%/gi;
+
+export const stoneStatsRegex = /<span><font color='#[0-9A-Fa-f]{6}'>([А-Яа-яЁё\w\s'&;,#-]+?)<\/font>\s*<em class='emoticon_ability_stone_blue'.*?<\/em>\s*<FONT COLOR='#[0-9A-Fa-f]{6}'>(\d)<\/FONT>/gmi;

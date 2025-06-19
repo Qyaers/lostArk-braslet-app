@@ -40,3 +40,8 @@ export interface SkinSlot {
     slot: string;
     img: string | undefined;
 }
+
+export interface StoneInfo {
+    engrName: string,
+    engrLvl: number
+}
